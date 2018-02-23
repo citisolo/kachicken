@@ -1,21 +1,20 @@
 const express = require('express');
 const indexRouter = express.Router();
 
+const User = require('../models/User');
+require('../models/Ingredient');
+require('../models/Recipe');
+require('../models/Menu');
+
+
 const userController = require('../controllers/user');
 const contactController = require('../controllers/contact');
 const ingredientController = require('../controllers/ingredient');
 const recipeController = require('../controllers/recipe');
 const menuController = require('../controllers/menu');
 
-indexRouter.post('/contact', contactController.contactPost);
-indexRouter.put('/account', userController.ensureAuthenticated, userController.accountPut);
-indexRouter.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
-indexRouter.post('/signup', userController.signupPost);
-indexRouter.post('/login', userController.loginPost);
-indexRouter.post('/forgot', userController.forgotPost);
-indexRouter.post('/reset/:token', userController.resetPost);
-indexRouter.get('/unlink/:provider', userController.authGoogle);
-indexRouter.get('/auth/google/callback', userController.authGoogleCallback);
+indexRouter.post('/api/user', userController.userPost);
+indexRouter.delete('/api/user/:user', User.verify,  userController.userDelete);
 indexRouter.get('/api/ingredient', ingredientController.ingredientGet);
 indexRouter.get('/api/ingredient/:ingredient', ingredientController.ingredientGet);
 indexRouter.post('/api/ingredient', ingredientController.ingredientPost);

@@ -1,4 +1,4 @@
-const recipeSchema = require('./Recipe');
+require('./Recipe');
 const mongoose = require('mongoose');
 
 var Menu = {

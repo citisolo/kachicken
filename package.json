@@ -8,5 +8,8 @@
     "start-client": "cd ./client && yarn start",
     "start-server": "cd ./server && yarn start"
   },
-  "author": "kwadwo amankwa"
+  "author": "kwadwo amankwa",
+  "dependencies": {
+    "jwt-simple": "^0.5.1"
+  }
 }

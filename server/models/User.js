@@ -1,64 +1,105 @@
-var crypto = require('crypto');
-var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
+var config = require('../config');
+var jwt = require('jsonwebtoken');
 
-var schemaOptions = {
-  timestamps: true,
-  toJSON: {
-    virtuals: true
-  }
-};
+var UserSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
 
-var userSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true},
-  password: String,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
-  gender: String,
-  location: String,
-  website: String,
-  picture: String,
-  facebook: String,
-  twitter: String,
-  google: String,
-  github: String,
-  vk: String
-}, schemaOptions);
-
-userSchema.pre('save', function(next) {
+UserSchema.pre('save', function(next){
   var user = this;
-  if (!user.isModified('password')) { return next(); }
-  bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
-      user.password = hash;
-      next();
+  bcrypt.hash(user.password, 10, function(err, hash){
+    if(err){
+      return next(err);
+    }
+    user.password = hash;
+    next();
+  });
+})
+
+UserSchema.statics.verify = function(req, res, next) {
+	var token = req.headers['x-access-token'];
+	if(!token){
+		return res.status(401).send({auth: false, message:'No token provided.'});
+	}
+	jwt.verify(token, config.secret, function(err, decoded) {
+		if(err){
+			return res.status(500).send({auth: false, message: 'Failed to authenticate token.'});
+		}
+		next();
+	})
+}
+
+UserSchema.statics.authorize = function(req, res, callback) {
+	var token = req.headers['x-access-token'];
+	if(!token){
+		return res.status(401).send({auth: false, message:'No token provided.'});
+	}
+	jwt.verify(token, config.secret, function(err, decoded) {
+		if(err){
+			return res.status(500).send({auth: false, message: 'Failed to authenticate token.'});
+		}
+		callback(req, res, decoded);
+	})
+}
+
+UserSchema.statics.signToken = function (id){
+  return token = jwt.sign({ id: id }, config.secret, {
+    expiresIn: 86400}); // expires in 24 hours
+}
+
+UserSchema.statics.passport = function(passport) {
+  var opts = {};
+  opts.secretOrKey  = config.secret;
+  passport.use(new JwtStrategy(opts, function(jwt_payload, done){
+    User.findOne({id: jwt_payload.id}, function(err, user){
+      if(err) {
+        return done(err, false);
+      }
+      if(user) {
+        done(null, user);
+      } else {
+        done(null, false);
+      }
+    })
+  }))
+}
+
+UserSchema.statics.authenticate = function (email, password, callback) {
+  User.findOne({email: email})
+    .exec(function (err, user) {
+      if(err) {
+        return callback(err);
+      } else if (!user) {
+        var err = new Error('User not found.');
+        err.status = 401;
+        return callback(err);
+      }
+      bcrypt.compare(password, user.password, function (err, result) {
+        if(result === true) {
+          return callback(null, user);
+        } else {
+          return callback();
+        }
+      })
     });
-  });
-});
+}
 
-userSchema.methods.comparePassword = function(password, cb) {
-  bcrypt.compare(password, this.password, function(err, isMatch) {
-    cb(err, isMatch);
-  });
-};
-
-userSchema.virtual('gravatar').get(function() {
-  if (!this.get('email')) {
-    return 'https://gravatar.com/avatar/?s=200&d=retro';
-  }
-  var md5 = crypto.createHash('md5').update(this.get('email')).digest('hex');
-  return 'https://gravatar.com/avatar/' + md5 + '?s=200&d=retro';
-});
-
-userSchema.options.toJSON = {
-  transform: function(doc, ret, options) {
-    delete ret.password;
-    delete ret.passwordResetToken;
-    delete ret.passwordResetExpires;
-  }
-};
-
-var User = mongoose.model('User', userSchema);
-
+var User = mongoose.model('User', UserSchema);
 module.exports = User;

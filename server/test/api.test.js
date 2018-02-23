@@ -86,3 +86,56 @@ describe('POST /api/menu', function(){
       })
   })
 })
+
+describe('POST /api/user (register user)', () => {
+  it('should create user, return 201 the delete the user and return 204', (done)=>{
+    request(server)
+      .post('/api/user')
+      .send({
+        email: "xolocinco@mansamusa.com",
+        username: "xolocinco",
+        password: "dogsmarts",
+        passwordConf:"dogsmarts",
+      })
+     .expect(201)
+     .then((response) => {
+       request(server)
+        .delete('/api/user/' + response.body._id)
+        .set('x-access-token', response.body.token)
+        .expect(204, done)
+     })
+  } )
+
+  describe('POST /api/user (authenticate user)', () => {
+    it('should attempt to log in with incorrect password and return 401', (done)=>{
+      request(server)
+        .post('/api/user')
+        .send({
+          email: "xolocinco@mansamusa.com",
+          username: "xolocinco",
+          password: "dogsmarts",
+          passwordConf:"dogsmarts",
+        })
+       .expect(201)
+       .then((response) => {
+         var token = response.body.token;
+         var id = response.body._id;
+         request(server)
+          .post('/api/user/')
+          .send({
+               'token': token,
+               'logemail' : "xolocinco@mansamusa.com",
+               'logpassword': "dogsmrts"
+                 })
+          .expect(401)
+          .then((response) => {
+            request(server)
+             .delete('/api/user/' + id)
+             .set('x-access-token', token)
+             .expect(204, done)
+          })
+       })
+     })
+    })
+
+})

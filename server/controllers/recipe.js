@@ -106,7 +106,6 @@ const IngredientEntry = mongoose.model('IngredientEntry');
 
    module.exports.recipeDelete = function(req, res) {
       let id = req.params.recipe ;
-      console.log(id)
       if(id){
         Recipe
             .findByIdAndRemove(id)
