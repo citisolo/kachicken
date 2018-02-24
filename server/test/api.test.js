@@ -88,8 +88,8 @@ describe('POST /api/menu', function(){
 })
 
 describe('POST /api/user (register user)', () => {
-  it('should create user, return 201 the delete the user and return 204', (done)=>{
-    request(server)
+  it('should create user, return 201 login then delete the user and return 204', (done)=>{
+    request(server) // Create New User
       .post('/api/user')
       .send({
         email: "xolocinco@mansamusa.com",
@@ -98,12 +98,21 @@ describe('POST /api/user (register user)', () => {
         passwordConf:"dogsmarts",
       })
      .expect(201)
-     .then((response) => {
+     .then((response) => { //login with details
+       var id = response.body._id;
        request(server)
-        .delete('/api/user/' + response.body._id)
-        .set('x-access-token', response.body.token)
-        .expect(204, done)
-     })
+        .post('/api/login/')
+        .send({
+             'logemail' : "xolocinco@mansamusa.com",
+             'logpassword': "dogsmarts"
+           })
+           .then((response) => { //perform authorized action
+             request(server)
+              .delete('/api/user/' + id)
+              .set('authorization', response.body.token)
+              .expect(204, done)
+           })
+         }
   } )
 
   describe('POST /api/user (authenticate user)', () => {
