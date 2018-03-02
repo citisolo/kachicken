@@ -7,8 +7,6 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-//const jwt = require('jsonwebtoken');
-//const jwt = require('jwt-simple');
 const moment = require('moment');
 const morgan = require('morgan');
 const request = require('request');
@@ -18,6 +16,7 @@ const passport = require('passport');
 const https = require('https');
 const fs = require('fs');
 const helmet = require('helmet');
+const cors = require('cors');
 
 // Load environment variables from .env file
 dotenv.load();
@@ -46,15 +45,23 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(helmet());
 app.use(passport.initialize());
+app.use(cors());
+app.use(function(err, req, res, next){
+  console("hello");
+  next();
+})
 
 // Controllers
 require('./config/passport')(passport);
 const indexRouter = require('./routes/index')(passport);
 
+
 app.use(indexRouter);
+
+
 
 // Production error handler
 if (app.get('env') === 'production') {
@@ -64,15 +71,21 @@ if (app.get('env') === 'production') {
   });
 }
 
-app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+
+
+
+// app.listen(app.get('port'), function() {
+//   console.log('Express server listening on port ' + app.get('port'));
+// });
+
 
 const sslOptions = {
-  key: fs.readFileSync('./mkss.pem'),
-  cert: fs.readFileSync('./mkss.crt')
+  key: fs.readFileSync(process.env.SSL_KEY),
+  cert: fs.readFileSync(process.env.SSL_CERT)
 }
 
-//https.createServer(options, app).listen(app.get('port'));
+https.createServer(sslOptions, app).listen(3080,function() {
+  console.log('Express server listening on port ' + 3080);
+});
 
 module.exports = app;

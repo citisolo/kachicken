@@ -99,33 +99,23 @@ module.exports.userPost = function(req, res){
 
 //FIXME: modify this to account for the case when user does not exist
 module.exports.userDelete = function(req, res) {
-  let id = req.params.user ;
-  if(id){
     var token = utils.getToken(req.headers);
     if (token) {
       var decoded = jwt.decode(token, config.secret);
-      if (decoded._id === id) {
-        User
-            .findByIdAndRemove(id)
-            .exec(
-              (err, data) => {
-                if(err){
-                  console.log("user not found");
-                  return utils.sendJsonResponse(res, 404, err);
-                }
-                console.log(data);
-                utils.sendJsonResponse(res, 204, null);
-              });
-      }
+      User
+          .findByIdAndRemove(decoded._id)
+          .exec(
+            (err, data) => {
+              if(err){
+                console.log("user not found");
+                return utils.sendJsonResponse(res, 404, err);
+              }
+              console.log(data);
+              utils.sendJsonResponse(res, 204, null);
+            });
     } else {
       utils.sendJsonResponse(res, 401, {
         message: "action unauthorized!"
       })
     }
-
-  }else{
-    utils.sendJsonResponse(res, 404, {
-      "message" : "No user  found"
-    });
-  }
 }

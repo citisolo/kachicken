@@ -1,0 +1,14 @@
+.menu-entry-button {
+  padding: 1px;
+  margin-top:5px;
+  width:100%;
+  white-space: normal;
+ word-wrap: break-word;
+  /*font-family: 'Permanent Marker';*/
+}
+
+.menu-item {
+  font-family: 'Permanent Marker';
+  font-size: 1.5em;
+  font-weight: bold;
+}

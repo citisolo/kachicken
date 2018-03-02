@@ -10,6 +10,9 @@
   },
   "author": "kwadwo amankwa",
   "dependencies": {
-    "jwt-simple": "^0.5.1"
+    "jwt-simple": "^0.5.1",
+    "prop-types": "^15.6.1",
+    "react-redux": "^5.0.7",
+    "redux-devtools": "^3.4.1"
   }
 }

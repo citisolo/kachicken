@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kachicken</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&font-effect=anaglyph" rel="stylesheet">
+    <style media="screen">
+      #spa {
+        height:100%;
+      }
+
+      #logo-title {
+        font-family: Permanent Marker;
+        color:white;
+        margin-right: 2em;
+      }
+
+      #navbarSupportedContent {
+        float:right;
+      }
+
+      #login-icon, #signup-icon{
+        font-size: 2em;
+        margin: 0 0.3em 0 0.2em;
+        color: white;
+      }
+
+      #sitebrand{
+        font-size: 2em;
+        margin: 0 0.1em 0 0.1em;
+        color: white;
+      }
+
+      #nav-login {
+        float: right;
+      }
+
+      #main-body {
+        height:100%;
+        border-width:0px;
+        padding: 20px 0px 20px 0px;
+      }
+
+      #menu-container{
+        display: flex;
+        flex-wrap: nowrap;
+        height:100%;
+      }
+
+      #menu-container > div {
+        border-width: 1px;
+        height:100%;
+        border-color: #c4d0dd;
+        border-style: solid;
+        /*text-align: center;
+        line-height: 75px;
+        font-size: 30px;*/
+      }
+
+      #menu-sidebar{
+        width: 15%;
+      }
+
+      #menu-calendar{
+        width:85%;
+      }
+
+      .footer {
+        text-align: center;
+        list-style-type: none;
+        display: inline-block;
+      }
+
+      .footer li {
+        display:inline-block;
+      }
+
+      /*Menu css*/
+      .menu-item-list {
+        list-style-type: none;
+        padding: 5px;
+        margin-top: 0px;
+      }
+
+      .menu-table {
+         table-layout: fixed;
+         width: 100%;
+         /*height: 600px;*/
+       }
+
+       .menu-table tbody tr th {
+
+       }
+
+       .menu-table th {
+          height: 30px;
+          text-align: center;
+       }
+
+       .menu-table td {
+         /*border-style:  solid;*/
+         /*border-width: 0.1px;*/
+         /*border-color: #c9c9c9;*/
+         height:100px;
+         text-align:inherit;
+	       border: 1.5px dotted grey;
+         vertical-align: top;
+       }
+
+      .menu-cell {
+         box-sizing: border-box;
+         padding: 5px;
+
+         /*overflow: 'hidden'*/
+       }
+
+       /*.menu-cell .card {
+         margin: 5px 0 0 0;
+       }*/
+
+       .menu-entry-button {
+         padding: 1px;
+         margin-top:5px;
+         width:100%;
+         white-space: normal;
+        word-wrap: break-word;
+         /*font-family: 'Permanent Marker';*/
+       }
+
+       .menu-item {
+         font-family: 'Permanent Marker';
+         font-size: 1.5em;
+         font-weight: bold;
+       }
+
+       .menu-label {
+         font-family: 'Permanent Marker';
+         font-size: 1em;
+         text-align:center;
+         font-weight: bold;
+         transform: matrix(0, 0, 0, 0, 0, 0);
+         /*letter-spacing:40px;*/
+       }
+
+       #menu-label-header{
+         width: 90px;
+       }
+
+
+    </style>
+    <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <div id="spa" class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
+      <a class="navbar-brand" href="#"><i id="sitebrand" class="fas fa-chess-queen"></i></a>
+      <span><h1 id="logo-title">Kachicken</h1></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
+        <i id="login-icon" class="fas fa-sign-in-alt"></i>
+      </div>
+    </nav>
+    <div id="main-body" class="card ">
+      <div id="menu-container" class="flex-container" >
+        <div id="menu-sidebar">
+
+        </div>
+        <div id="menu-calendar">
+          <table class="menu-table"  cellspacing="0">
+          <tbody>
+          <tr>
+             <th id="menu-label-header"></th>
+             <th>Monday</th>
+             <th>Tuesday</th>
+             <th>Wednesday</th>
+             <th>Thursday</th>
+             <th>Friday</th>
+             <th>Saturday</th>
+             <th>Sunday</th>
+          </tr>
+          <tr>
+             <td><span class="menu-label">Breakfast</span></td>
+             <td>
+               <div class="menu-cell">
+                <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Rice and Peas</span></button>
+                <!-- <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Egg and Toast</span></button> -->
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Ground Nut Soup</span></button>
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Ackee and Saltfish</span></button>
+               </div>
+             </td>
+          </tr>
+          <tr>
+             <td><span class="menu-label">Lunch</span></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Jerk Chicken</span></button>
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Burgers and Fries</span></button>
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Ground Nut Soup</span></button>
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+          </tr>
+          <tr>
+             <td><span class="menu-label">Snack</span></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Mac and Cheese</span></button>
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+          </tr>
+          <tr>
+             <td><span class="menu-label">Dinner</span></td>
+             <td><div class="menu-cell"></div></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Rice and Stew</span></button>
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Fufu</span></button>
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Rice and Stew</span></button>
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Fufu</span></button>
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Ground Nut Soup</span></button>
+               </div>
+             </td>
+          </tr>
+           <tr>
+             <td><span class="menu-label">Dessert</span></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Ice Cream</span></button>
+               </div>
+             </td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td><div class="menu-cell"></div></td>
+             <td>
+               <div class="menu-cell">
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Baked Alaska</span></button>
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Kelewele</span></button>
+                 <button type="button" class="btn btn-warning menu-entry-button"><span class="menu-item">Apple Pie</span></button>
+               </div>
+             </td>
+          </tr>
+          </tbody>
+         </table>
+        </div>
+      </div>
+      <div class="card-footer text-muted text-center">
+        <ul class=" footer">
+          <li class="nav-item">
+            <a class="nav-link" href="#">contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">about</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+   </div>
+
+  </body>
+</html>

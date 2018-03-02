@@ -1,0 +1,9 @@
+.mkss-grid-list {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.mkss-grid-list > * {
+  width:30%;
+  margin: 10px 10px 10px 10px;
+}

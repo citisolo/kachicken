@@ -1,0 +1,45 @@
+#spa {
+  height:100%;
+}
+
+#logo-title {
+  font-family: Permanent Marker;
+  color:white;
+  margin-right: 2em;
+}
+
+#navbarSupportedContent {
+  float:right;
+}
+
+#login-icon, #signup-icon{
+  font-size: 2em;
+  margin: 0 0.3em 0 0.2em;
+  color: white;
+}
+
+#sitebrand{
+  font-size: 2em;
+  margin: 0 0.1em 0 0.1em;
+  color: white;
+}
+
+#nav-login {
+  float: right;
+}
+
+#main-body {
+  height:100%;
+  border-width:0px;
+  padding: 20px 0px 20px 0px;
+}
+
+.footer {
+  text-align: center;
+  list-style-type: none;
+  display: inline-block;
+}
+
+.footer li {
+  display:inline-block;
+}

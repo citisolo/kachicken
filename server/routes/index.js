@@ -40,23 +40,21 @@ module.exports = function (passport) {
   indexRouter.get('/api/ingredient', ingredientController.ingredientGet);
   indexRouter.get('/api/ingredient/:ingredient', ingredientController.ingredientGet);
   indexRouter.get('/api/recipe', recipeController.recipeGet);
-  indexRouter.get('/api/menu', passport.authenticate('jwt', { session: false}), menuController.menuGet);
+  indexRouter.get('/api/menu', menuController.menuGet);
   indexRouter.get('/api/menu/:menu', menuController.menuGet);
 
-
   indexRouter.post('/api/ingredient', ingredientController.ingredientPost);
-  indexRouter.delete('/api/ingredient/:ingredient', ingredientController.ingredientDelete);
-  indexRouter.post('/api/rececipe/:recipe', recipeController.recipeDelete);
+  indexRouter.post('/api/recipe', recipeController.recipePost);
   indexRouter.post('/api/menu', menuController.menuPost);
-  indexRouter.post('/api/menu/add', menuController.menuAddRecipePost);
+  indexRouter.post('/api/menu/add/:menuID', menuController.menuAddRecipePost);
   indexRouter.post('/api/menu/delete', menuController.menuDeleteRecipePost);
-  indexRouter.delete('/api/menu/:menu', menuController.menuDelete);
-
   indexRouter.post('/api/user', userController.userPost);
   indexRouter.post('/api/login', userController.userLogin);
 
-
-  indexRouter.delete('/api/user/:user',  passport.authenticate('jwt', { session: false}),  userController.userDelete);
+  indexRouter.delete('/api/ingredient/:ingredient', ingredientController.ingredientDelete);
+  indexRouter.delete('/api/recipe/:recipe', recipeController.recipeDelete);
+  indexRouter.delete('/api/menu/:menu', menuController.menuDelete);
+  indexRouter.delete('/api/user',  passport.authenticate('jwt', { session: false}),  userController.userDelete);
 
   return indexRouter;
 }

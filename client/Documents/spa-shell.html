@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kachicken</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&font-effect=anaglyph" rel="stylesheet">
+    <style media="screen">
+      #spa {
+        height:100%;
+      }
+
+      #logo-title {
+        font-family: Permanent Marker;
+        color:white;
+        margin-right: 2em;
+      }
+
+      #navbarSupportedContent {
+        float:right;
+      }
+
+      #login-icon, #signup-icon{
+        font-size: 2em;
+        margin: 0 0.3em 0 0.2em;
+        color: white;
+      }
+
+      #sitebrand{
+        font-size: 2em;
+        margin: 0 0.1em 0 0.1em;
+        color: white;
+      }
+
+      #nav-login {
+        float: right;
+      }
+
+      #main-body {
+        height:100%;
+        border-width:0px;
+        padding: 20px 0px 20px 0px;
+      }
+
+      .footer {
+        text-align: center;
+        list-style-type: none;
+        display: inline-block;
+      }
+
+      .footer li {
+        display:inline-block;
+      }
+
+      /*grid-list css*/
+      .mkss-grid-list {
+        list-style-type: none;
+        padding: 20px;
+      }
+      .mkss-grid-item {
+        margin:10px;
+        display:inline-block;
+        width:30%;
+        float:left;
+      }
+
+      .mkss-grid-item .card-body{
+        border-top: 1px;
+      }
+
+      .mkss-search {
+        width: 600px;
+        margin: 0 0 0 30px;
+      }
+
+    </style>
+    <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <div id="spa" class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
+      <a class="navbar-brand" href="#"><i id="sitebrand" class="fas fa-chess-queen"></i></a>
+      <span><h1 id="logo-title">Kachicken</h1></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
+        <i id="login-icon" class="fas fa-sign-in-alt"></i>
+      </div>
+    </nav>
+      <div id="main-body" class="card">
+      <div class="card-body"></div>
+      <div class="card-footer text-muted text-center">
+        <ul class=" footer">
+          <li class="nav-item">
+            <a class="nav-link" href="#">contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">about</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>

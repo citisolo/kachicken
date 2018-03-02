@@ -87,6 +87,36 @@ describe('POST /api/menu', function(){
   })
 })
 
+describe('POST /api/menu/add', function(){
+  menuData = {
+    row:["breakfast", "dinner", "dinner", "lunch", "snack"],
+    col:["monday",    "friday", "friday", "sunday", "wednesday"],
+    recipe: ["59f8ccd9882fac3f9dbfa207", "59f8ccd9882fac3f9dbfa207","59f8ccd9882fac3f9dbfa207", "59f8ccd9882fac3f9dbfa207", "59f8ccd9882fac3f9dbfa207"]
+  }
+
+  it('should create menu return 201 the delete the menu and return 204', function(done){
+    request(server)
+      .post('/api/menu')
+      .send({
+        name: 'My test Menu'
+      })
+      .expect(201)
+      .then((res)=>{
+        let menuID = res.body._id;
+        request(server)
+          .post('/api/menu/add/' + menuID)
+          .send(menuData)
+          .expect(200, done)
+          .then((res) => {
+            request(server)
+              .delete('/api/menu/' + res.body._id )
+              .expect(204, done)
+          })
+      })
+
+  })
+})
+
 describe('POST /api/user (register user)', () => {
   it('should create user, return 201 login then delete the user and return 204', (done)=>{
     request(server) // Create New User
@@ -99,52 +129,20 @@ describe('POST /api/user (register user)', () => {
       })
      .expect(201)
      .then((response) => { //login with details
-       var id = response.body._id;
        request(server)
         .post('/api/login/')
         .send({
              'logemail' : "xolocinco@mansamusa.com",
              'logpassword': "dogsmarts"
            })
+           .expect(200)
            .then((response) => { //perform authorized action
              request(server)
-              .delete('/api/user/' + id)
+              .delete('/api/user/')
               .set('authorization', response.body.token)
               .expect(204, done)
            })
-         }
+         })
   } )
-
-  describe('POST /api/user (authenticate user)', () => {
-    it('should attempt to log in with incorrect password and return 401', (done)=>{
-      request(server)
-        .post('/api/user')
-        .send({
-          email: "xolocinco@mansamusa.com",
-          username: "xolocinco",
-          password: "dogsmarts",
-          passwordConf:"dogsmarts",
-        })
-       .expect(201)
-       .then((response) => {
-         var token = response.body.token;
-         var id = response.body._id;
-         request(server)
-          .post('/api/user/')
-          .send({
-               'token': token,
-               'logemail' : "xolocinco@mansamusa.com",
-               'logpassword': "dogsmrts"
-                 })
-          .expect(401)
-          .then((response) => {
-            request(server)
-             .delete('/api/user/' + id)
-             .set('x-access-token', token)
-             .expect(204, done)
-          })
-       })
-     })
-    })
 
 })

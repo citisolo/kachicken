@@ -1,0 +1,15 @@
+#menu-container{
+  display: flex;
+  flex-wrap: nowrap;
+  height:100%;
+}
+
+#menu-container > div {
+  border-width: 1px;
+  height:100%;
+  border-color: #c4d0dd;
+  border-style: solid;
+  /*text-align: center;
+  line-height: 75px;
+  font-size: 30px;*/
+}

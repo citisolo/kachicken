@@ -1,0 +1,35 @@
+       #landing-page-container {
+         /*overflow: hidden;*/
+       }
+
+       .jumbotron {
+          padding: 2rem 1rem;
+          margin-bottom: 2rem;
+          background-color: #ff9c0880;
+          border-radius: .3rem;
+      }
+
+       .row {
+         overflow: hidden;
+       }
+
+      .mkss-bubble-card{
+        border-radius: 160px;
+        padding: 20px 35px 20px 35px;
+        width: 90%;
+      }
+      .grid-list {
+        list-style:none;
+        /*display:inline;*/
+      }
+
+      .mkss-grid-list {
+        list-style-type: none;
+        padding: 20px;
+      }
+      .mkss-grid-item {
+        margin:10px;
+        display:inline-block;
+        width:30%;
+        float:left;
+      }

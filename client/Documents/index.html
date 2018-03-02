@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kachicken</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&font-effect=anaglyph" rel="stylesheet">
+    <style media="screen">
+      body, html, .container-fluid, #shell, #spa-shell-main-nav, #spa-shell-main-content {
+         height: 100%;
+         overflow:auto;
+      }
+
+      #spa-shell-header {
+      width:100%;
+      height: 10%;
+      padding: 10px;
+      }
+      .spa-shell-head-logo {
+      top: 4px;
+      /*left: 4px;*/
+      height: 32px;
+      width: 128px;
+      background : orange;
+      }
+      .spa-shell-head-acct {
+      top: 4px;
+      right: 0;
+      width: 64px;
+      height: 32px;
+      background: green;
+      }
+      .spa-shell-head-search {
+      top : 4px;
+      right : 64px;
+      width : 248px;
+      height: 32px;
+      background: blue;
+      }
+
+      #spa-shell-main {
+      height:85%;
+      }
+
+      #spa-shell-main-nav {
+      background: #aaafb0;
+      border-radius: 0px 4px 4px 0px;
+      }
+
+      #spa-shell-main-content {
+      background: #ddd;
+      }
+
+      #spa-shell-foot {
+      height : 5%;
+      }
+
+      .spa-shell-text-area {
+      border-radius: 4px;
+      width: 100%;
+      height: 100%;
+      background: white;
+      margin: 10px;
+      }
+
+      .spa-shell-display-row {
+      height: 100%;
+      }
+
+      .spa-shell-display-row .col-12 {
+      padding: 10px;
+      }
+
+      textarea {
+      width: 100%;
+      height: 100%;
+      }
+
+      .tab-router {
+      /*overflow:scroll;*/
+      }
+      #spa {
+        height:100%;
+      }
+
+      #logo-title {
+        font-family: Permanent Marker;
+        color:white;
+        margin-right: 2em;
+      }
+
+      #navbarSupportedContent {
+        float:right;
+      }
+
+      #login-icon, #signup-icon{
+        font-size: 2em;
+        margin: 0 0.3em 0 0.2em;
+        color: white;
+      }
+
+      #sitebrand{
+        font-size: 2em;
+        margin: 0 0.1em 0 0.1em;
+        color: white;
+      }
+
+      #nav-login {
+        float: right;
+      }
+
+      #main-body {
+        height:100%;
+        border-width:0px;
+        padding: 20px 0px 20px 0px;
+      }
+
+
+      .footer {
+        text-align: center;
+        list-style-type: none;
+        display: inline-block;
+      }
+
+      .footer li {
+        display:inline-block;
+      }
+
+    </style>
+    <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <div id="spa" class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
+      <a class="navbar-brand" href="#"><i id="sitebrand" class="fas fa-chess-queen"></i></a>
+      <span><h1 id="logo-title">Kachicken</h1></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
+        <i id="login-icon" class="fas fa-sign-in-alt"></i>
+      </div>
+    </nav>
+    <div id="main-body" class="card ">
+      <div class="card-columns">
+        <div class="card">
+          <img class="card-img-top img-fluid" src="..." alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title that wraps to a new line</h4>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+        </div>
+        <div class="card p-3">
+          <blockquote class="card-block card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>
+              <small class="text-muted">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </small>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="card">
+          <img class="card-img-top img-fluid" src="..." alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card card-inverse card-primary p-3 text-center">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+            <footer>
+              <small>
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </small>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="card text-center">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img img-fluid" src="..." alt="Card image">
+        </div>
+        <div class="card p-3 text-right">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>
+              <small class="text-muted">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </small>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="card">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted text-center">
+        <ul class=" footer">
+          <li class="nav-item">
+            <a class="nav-link" href="#">contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">about</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+   </div>
+
+  </body>
+</html>
