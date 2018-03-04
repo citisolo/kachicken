@@ -7,8 +7,7 @@ describe('GET /api/ingredient', function() {
   it('should render ok', function(done){
     request(server)
       .get('/api/ingredient')
-      .expect(200)
-      .end(done);
+      .expect(200, done)
   })
 })
 
@@ -16,11 +15,7 @@ describe('GET /api/ingredient/onion', function() {
   it('should render ok', function(done){
     request(server)
       .get('/api/ingredient/onion')
-      .expect(200)
-      .end((err, res) => {
-        //assert(res.body[0].name, 'harvey');
-        done();
-      })
+      .expect(200,done)
   })
 })
 
@@ -28,8 +23,7 @@ describe('GET /api/recipe', function(){
   it('should render ok', function(done){
     request(server)
       .get('/api/recipe')
-      .expect(200)
-      .end(done)
+      .expect(200, done)
   })
 })
 
@@ -66,8 +60,7 @@ describe('GET /api/menu', function(){
   it('should render ok', function(done){
     request(server)
       .get('/api/menu')
-      .expect(200)
-      .end(done)
+      .expect(200, done)
   })
 })
 
@@ -106,11 +99,20 @@ describe('POST /api/menu/add', function(){
         request(server)
           .post('/api/menu/add/' + menuID)
           .send(menuData)
-          .expect(200, done)
-          .then((res) => {
+          .expect(200)
+          .then((res) => {// add code to check that the data was successfully saved
             request(server)
-              .delete('/api/menu/' + res.body._id )
-              .expect(204, done)
+              .get('/api/menu/' + menuID)
+              .expect(200)
+              .then((res) => {
+                let resData = res.body.menu.breakfast.monday[0]._id;
+                let sentData = menuData.recipe[0];
+                assert(resData === sentData);
+                request(server)
+                  .delete('/api/menu/' + res.body._id )
+                  .expect(204, done)
+              })
+
           })
       })
 
