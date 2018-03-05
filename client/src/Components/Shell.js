@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import Footer from './Footer'
 
 import './Shell.css';
 
@@ -10,24 +11,14 @@ class Shell extends Component {
 
   render(){
     return (
-       <div id="spa" class="container-fluid">
+       <div id="spa" className="container-fluid">
          <Header> </Header>
-         <div id="main-body" class="card">
-           <div class="card-body">
+         <div id="main-body" className="card">
+           <div className="card-body">
              {this.props.children}
            </div>
-           <div class="card-footer text-muted text-center">
-             <ul class=" footer">
-               <li class="nav-item">
-                 <a class="nav-link" href="#">contact</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link" href="#">home</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link" href="#">about</a>
-               </li>
-             </ul>
+           <div className="card-footer text-muted text-center">
+           <Footer> </Footer>
            </div>
          </div>
        </div>

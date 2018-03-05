@@ -26,9 +26,9 @@ class SearchPage extends Component {
     })
 
     return (
-      <div class="container">
-        <div class="input-group mkss-search">
-          <input type="text" class="form-control" placeholder="Search for..."/>
+      <div className="container">
+        <div className="input-group mkss-search">
+          <input type="text" className="form-control" placeholder="Search for..."/>
         </div>
         <GridList>
           {menuItems}

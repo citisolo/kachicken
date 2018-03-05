@@ -3,8 +3,7 @@ const host = 'https://localhost:3080/api/';
 
 export function getMenus() {
   return (dispatch) => {
-
-    return fetch('https://localhost:3080/api/menu',  {
+    return fetch( host  + 'menu',  {
       method: 'GET'
     }).then((response) => {
       console.log(response);
@@ -31,7 +30,6 @@ export function getMenus() {
 export function getMenu(menuID){
   return (dispatch) => {
     const url = host + 'menu/' + menuID;
-    console.log(url);
     return fetch(url, { method: 'GET' })
           .then((response) => {
               if (response.ok) {

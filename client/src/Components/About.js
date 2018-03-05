@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import ContainerFluid from './ContainerFluid';
-import Header from './Header';
-import MainContent from './MainContent';
-import Footer from './Footer';
 
 
 class About extends Component {
@@ -12,11 +8,7 @@ class About extends Component {
 
   render(){
     return (
-      <ContainerFluid>
-        <Header></Header>
-        <MainContent> </MainContent>
-        <Footer></Footer>
-      </ContainerFluid>
+      <div></div>
     )
   }
 }

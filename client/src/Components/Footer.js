@@ -7,11 +7,17 @@ class Footer extends Component {
 
   render(){
     return (
-      <div class="row" id="spa-shell-foot">
-         <div class="col">
-          {this.props.children}
-         </div>
-      </div>
+      <ul className=" footer">
+        <li className="nav-item">
+          <a className="nav-link" href="#">contact</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="#">home</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="#">about</a>
+        </li>
+      </ul>
     )
   }
 
