@@ -1,0 +1,14 @@
+{
+  "name": "menu-planner-utils",
+  "version": "1.0.0",
+  "description": "utilities for menuplanner app",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test --recursive"
+  },
+  "author": "kwadwo amankwa",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^5.0.2"
+  }
+}

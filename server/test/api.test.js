@@ -105,9 +105,11 @@ describe('POST /api/menu/add', function(){
               .get('/api/menu/' + menuID)
               .expect(200)
               .then((res) => {
-                let resData = res.body.menu.breakfast.monday[0]._id;
-                let sentData = menuData.recipe[0];
-                assert(resData === sentData);
+                let resData = res.body.menuFormat.recipe;
+                for(let key in resData){
+                  let index = menuData.recipe.indexOf(resData[key]);
+                  assert( index !== -1 );
+                }
                 request(server)
                   .delete('/api/menu/' + res.body._id )
                   .expect(204, done)

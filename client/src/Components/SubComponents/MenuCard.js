@@ -59,7 +59,7 @@ class MenuCard extends Component {
       <div class="card">
         <img class="card-img-top" src={this.props.image} alt={this.props.altImage}/>
         <div class="card-body bg-primary">
-          <Link to={"/menu/"+ this.props.menuID} className="text-white">
+          <Link to={"/menu/" + this.props.menuID}  className="text-white">
             <h5 class="card-title">{this.props.title}</h5>
             <p class="card-text">{this.props.desc}</p>
           </Link>

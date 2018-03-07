@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha ./test --recursive",
-    "start": "node server.js",
-    "vers": "node -v"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -28,11 +27,13 @@
     "jsonwebtoken": "^8.1.1",
     "jwt-simple": "^0.5.1",
     "logger": "^0.0.1",
+    "menu-planner-utils": "../custom/menu-planner-utils",
     "mocha": "^5.0.1",
     "moment": "^2.20.1",
     "mongoose": "^5.0.6",
     "morgan": "^1.9.0",
     "nodemailer": "^4.4.2",
+    "nodemon": "^1.17.1",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "qs": "^6.5.1",

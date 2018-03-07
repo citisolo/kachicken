@@ -40,6 +40,7 @@ module.exports = function (passport) {
   indexRouter.get('/api/ingredient', ingredientController.ingredientGet);
   indexRouter.get('/api/ingredient/:ingredient', ingredientController.ingredientGet);
   indexRouter.get('/api/recipe', recipeController.recipeGet);
+  indexRouter.get('/api/recipe/:recipe', recipeController.recipeGet);
   indexRouter.get('/api/menu', menuController.menuGet);
   indexRouter.get('/api/menu/:menu', menuController.menuGet);
 

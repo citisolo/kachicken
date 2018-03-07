@@ -9,7 +9,9 @@ import { connect } from 'react-redux';
 
 
 class MenuPage extends Component {
+
   render(){
+    console.log(this.props.match.params);
     return (
       <FlexLayout>
        <div></div>

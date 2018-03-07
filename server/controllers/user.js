@@ -110,7 +110,7 @@ module.exports.userDelete = function(req, res) {
                 console.log("user not found");
                 return utils.sendJsonResponse(res, 404, err);
               }
-              console.log(data);
+              // console.log(data);
               utils.sendJsonResponse(res, 204, null);
             });
     } else {

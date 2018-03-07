@@ -6,7 +6,6 @@ export function getMenus() {
     return fetch( host  + 'menu',  {
       method: 'GET'
     }).then((response) => {
-      console.log(response);
       if (response.ok) {
         return response.json()
                        .then((json) => {
@@ -45,6 +44,31 @@ export function getMenu(menuID){
                                .then((json) => {
                                  dispatch({
                                    type: 'MENU_ERROR',
+                                 });
+                               });
+              }
+            });
+  }
+}
+
+export function getRecipe(recipeID){
+  return (dispatch) => {
+    const url = host + 'recipe/' + recipeID;
+    return fetch(url, { method: 'GET' })
+          .then((response) => {
+              if (response.ok) {
+                return response.json()
+                               .then((json) => {
+                                  dispatch({
+                                    type: 'GETRECIPE_SUCCESS',
+                                    payload: json
+                                  });
+                               });
+              }else {
+                return response.json()
+                               .then((json) => {
+                                 dispatch({
+                                   type: 'RECIPE_ERROR',
                                  });
                                });
               }

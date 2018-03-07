@@ -6,8 +6,8 @@ import './MenuItem.css';
 class MenuItem extends Component {
   render(){
     return (
-      <button type="button" class="btn btn-warning menu-entry-button">
-        <span class="menu-item">{this.props.text}</span>
+      <button type="button" className="btn btn-warning menu-entry-button">
+        <span className="menu-item">{this.props.text}</span>
       </button>
     )
   }

@@ -49,10 +49,10 @@ app.use(expressValidator());
 app.use(helmet());
 app.use(passport.initialize());
 app.use(cors());
-app.use(function(err, req, res, next){
-  console("hello");
-  next();
-})
+// app.use(function(err, req, res, next){
+//   console("hello");
+//   next();
+// })
 
 // Controllers
 require('./config/passport')(passport);

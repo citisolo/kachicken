@@ -8,6 +8,11 @@ const initialState = {
       snack:  { monday: [], tuesday:[], wednesday: [], thursday: [], friday: [], saturday:[], sunday:[]},
       dinner: { monday: [], tuesday:[], wednesday: [], thursday: [], friday: [], saturday:[], sunday:[]},
       pudding: { monday: [], tuesday:[], wednesday: [], thursday: [], friday: [], saturday:[], sunday:[]}
+    },
+    menuFormat: {
+      row:[],
+      col:[],
+      recipe: []
     }
   },
 }
@@ -21,6 +26,10 @@ export default function mealplanner(state=initialState, action){
     case "GETMENU_SUCCESS":
       return Object.assign({}, state, {
         selectedMenu: action.payload
+      });
+    case "GETRECIPE_SUCCESS":
+      return Object.assign({}, state, {
+        recipes: action.payload
       })
     case "GETMENUS_FAILURE":
     default:

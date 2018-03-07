@@ -14,7 +14,7 @@ const IngredientEntry = mongoose.model('IngredientEntry');
  module.exports.recipeGet = function(req, res) {
    let rec = req.params.recipe
    if(rec){
-     Recipe.find({name: recipeName}, (err, recipe) => {
+     Recipe.find({_id: rec}, (err, recipe) => {
        if(err){
          return res.status(401).send({msg: 'The item you were looking for does not exist'})
        }else{

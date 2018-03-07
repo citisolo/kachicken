@@ -5,7 +5,8 @@ var utils = require('../models/utils');
 var mongoose = require('mongoose');
 const Recipe = mongoose.model('Recipe');
 const Menu = mongoose.model('Menu');
-
+const {MenuFormatter} = require('menu-planner-utils');
+const MenuFormat = mongoose.model('MenuFormat');
 
 /**
  * GET /api/menu
@@ -16,24 +17,35 @@ const Menu = mongoose.model('Menu');
    if(menuID){
      Menu
        .findOne({_id: menuID})
+       .select('name tags description image menuFormat')
        .exec((err, menu) => {
          if(err){
            return res.status(401).send({msg: 'The item you were looking for does not exist'})
          }else{
-           res.status(200);
-           res.json(menu);
+          //  res.status(200);
+          //  res.json(menu);
+           return utils.sendJsonResponse(res, 200, menu);
          }
        })
    } else {
      Menu
        .find()
-       .select('name tags description image')
+       .select('name tags description image ')
        .exec((err, menus) => {
          if(err){
            return res.status(401).send({msg: 'database error: '+ err});
          }else{
-           res.status(200);
-           res.json(menus);
+          return utils.sendJsonResponse(res, 200, menus);
+          //  menus.forEach(function(menu, index){
+          //    let menuFormat = MenuFormatter.encode(menu.menu.toObject());
+          //    menu.menuFormat = MenuFormat.hydrate(menuFormat);
+          //    menu.save();
+          //    if(index === (menus.length-1)){
+          //     //  res.status(200);
+          //     //  res.json(menus);
+          //      utils.sendJsonResponse(res, 200, menus);
+          //    }
+          //  })
          }
        })
    }
@@ -78,46 +90,80 @@ module.exports.menuAddRecipePost = (req, res) => {
  // console.log(req.body.row);
  //If multiple entries
  let menuID = req.params.menuID;
-if(Array.isArray(req.body.recipe)){
-  Menu.findOne({_id: menuID})
-      .then((menu, err) => {
-         req.body.recipe.map((id, index) => {
-           return Recipe.findOne({_id: id})
-                 .then((recipe, err) => {
-                   if(err){
-                     utils.sendJsonResponse(res, 400, err);
-                   }else{
-                     let row = req.body.row[index];
-                     let col = req.body.col[index]
-                     menu.menu[row][col].push(recipe);
-                     if(index === (req.body.recipe.length - 1)){
-                       menu.save();
-                       return utils.sendJsonResponse(res, 200, menu);
-                     }
-                   }
-                 })
-         });
-      })
-} else {//Single entry
-   Menu.findOne({_id: menuID})
-       .exec((err, menu) => {
-         if(err) {
-           utils.sendJsonResponse(res, 400, err);
-         } else {
-           Recipe.findOne({_id: req.body.recipe})
-                 .exec((err, recipe) => {
-                   if(err){
-                     return utils.sendJsonResponse(res, 400, err);
-                   }else{
-                     menu.menu[req.body.row][req.body.col].push(recipe);
-                     menu.save();
-                     return utils.sendJsonResponse(res, 200, menu);
-                   }
-                 });
-         }
-       });
-     }
-}
+ Menu.findOne({_id: menuID})
+     .then((menu, err) => {
+       let newFormat;
+       if(Array.isArray(req.body.recipe)){
+         newFormat = MenuFormat.hydrate({
+           row: req.body.row,
+           col:req.body.col,
+           recipe: req.body.recipe});
+       } else {
+         newFormat = MenuFormat.hydrate({
+           row: [req.body.row],
+           col:[req.body.col],
+           recipe: [req.body.recipe]});
+       }
+       menu.menuFormat = newFormat;
+       menu.save();
+       return utils.sendJsonResponse(res, 200, menu);
+     });
+
+// if(Array.isArray(req.body.recipe)){
+//   Menu.findOne({_id: menuID})
+//       .then((menu, err) => {
+//         let newFormat;
+//         newFormat = MenuFormat.hydrate({
+//           row: req.body.row,
+//           col:req.body.col,
+//           recipe: req.body.recipe});
+//         menu.menuFormat = newFormat;
+//         menu.save();
+//         // req.body.recipe.map((id, index) => {
+//         //    return Recipe.findOne({_id: id})
+//         //          .then((recipe, err) => {
+//         //            if(err){
+//         //              utils.sendJsonResponse(res, 400, err);
+//         //            }else{
+//         //              let row = req.body.row[index];
+//         //              let col = req.body.col[index]
+//         //              menu.menu[row][col].push(recipe);
+//         //              if(index === (req.body.recipe.length - 1)){
+//         //                menu.save();
+//         //                return utils.sendJsonResponse(res, 200, menu);
+//         //              }
+//         //            }
+//         //          })
+//         //  });
+//       })
+// } else {//Single entry
+//    Menu.findOne({_id: menuID})
+//        .exec((err, menu) => {
+//          if(err) {
+//            utils.sendJsonResponse(res, 400, err);
+//          } else {
+//          var newFormat = MenuFormat.hydrate({
+//            row: [req.body.row],
+//            col:[req.body.col],
+//            recipe: [req.body.recipe]});
+//            menu.menuFormat = newFormat;
+//            menu.save();
+//            return utils.sendJsonResponse(res, 200, menu);
+//           //  Recipe.findOne({_id: req.body.recipe})
+//           //        .exec((err, recipe) => {
+//           //          if(err){
+//           //            return utils.sendJsonResponse(res, 400, err);
+//           //          }else{
+//           //            menu.menu[req.body.row][req.body.col].push(recipe);
+//           //            menu.save();
+//           //            return utils.sendJsonResponse(res, 200, menu);
+//           //          }
+//           //        });
+//          }
+//        });
+//      }
+//
+ }
 
 /**
  * POST /api/menu/delete
