@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import LoginComponent from './SubComponents/LoginComponent'
+
+import './Header.css';
 
 class Header extends Component {
   constructor(props){
     super(props);
+  }
+
+  handleClick(event){
+     console.log(event);
   }
 
   render(){
@@ -23,7 +30,15 @@ class Header extends Component {
               <a className="nav-link" href="/search">Search</a>
             </li>
           </ul>
-          <i id="login-icon" className="fas fa-sign-in-alt"></i>
+          <div class="dropdown show">
+            <button class="btn btn-primary dropdown-toggle" onClick={this.handleClick} data-offset="3" data-toggle="dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <i id="login-icon" className="fas fa-sign-in-alt"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right show" aria-labelledby="dropdownMenuButton">
+              <LoginComponent/>
+            </div>
+          </div>
+
         </div>
       </nav>
     )
