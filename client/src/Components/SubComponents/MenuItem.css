@@ -3,7 +3,7 @@
   margin-top:5px;
   width:100%;
   white-space: normal;
- word-wrap: break-word;
+  word-wrap: break-word;
   /*font-family: 'Permanent Marker';*/
 }
 
@@ -11,4 +11,38 @@
   font-family: 'Permanent Marker';
   font-size: 1.5em;
   font-weight: bold;
+}
+
+.menu-item-utility-button-badge {
+  font-size: 1em;
+  margin: 0px;
+  padding: 0px;
+}
+
+.menu-item-utility-button  {
+    /*height: 20px;
+    padding: 0px;*/
+    padding: 1px 3px 0px 0px;
+    text-align: right;
+}
+
+.menu-item-utility-add  {
+    font-size: 1.5em;
+    text-align: 'center';
+    height: 20px;
+    padding: 0px;
+
+}
+
+/*{
+    color: #007bff;
+    background-color: #007bff4d;
+    border-color: #007bff;
+}*/
+
+.menu-item-add{
+  text-align: center;
+  color: #90c5fe;
+  /*background-color: #007bff4d;*/
+  border-color: #007bff;
 }

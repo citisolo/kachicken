@@ -30,8 +30,21 @@
    height:100px;
    text-align:inherit;
    border: 1.5px dotted grey;
+   border-bottom:none;
    vertical-align: top;
  }
+
+ .menu-add-row td {
+   height: 20px;
+   border-top:none;
+   border-bottom: 1.5px dotted grey;
+ }
+
+ #menu-header-row {
+   border-width: 1.5px;
+   border-style: solid;
+ }
+
 
 .menu-cell {
    box-sizing: border-box;
@@ -48,3 +61,9 @@
    transform: matrix(0, 0, 0, 0, 0, 0);
    /*letter-spacing:40px;*/
  }
+
+ #menu-save-button {
+    float: right;
+    margin: 10px;
+    font-size: 1.5em;
+}
