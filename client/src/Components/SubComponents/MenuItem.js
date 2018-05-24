@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './MenuItem.css';
-//<span class="badge badge-default">new</span>
+//<span className="badge badge-default">new</span>
 class MenuItem extends Component {
   render(){
     return (
@@ -10,7 +10,7 @@ class MenuItem extends Component {
        <button type="button" className="btn btn-warning menu-entry-button">
          <span className="menu-item">{this.props.text}</span>
        </button>
-       <button type="button" onClick={(e) => {this.props.remove(this.props.index)}} className="menu-item-utility-button btn btn-warning"><span className="menu-item-utility-button-badge badge badge-default"><i class="fas fa-minus-circle"></i></span></button>
+       <button type="button" onClick={(e) => {this.props.remove(this.props.index)}} className="menu-item-utility-button btn btn-warning"><span className="menu-item-utility-button-badge badge badge-default"><i className="fas fa-minus-circle"></i></span></button>
       </div>
     )
   }

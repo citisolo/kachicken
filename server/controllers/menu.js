@@ -19,6 +19,7 @@ const MenuFormat = mongoose.model('MenuFormat');
        .findOne({_id: menuID})
        .select('name tags description image menuFormat')
        .exec((err, menu) => {
+         console.log(menu);
          if(err){
            return res.status(401).send({msg: 'The item you were looking for does not exist'})
          }else{

@@ -36,6 +36,7 @@ var menuFormat = new mongoose.Schema({
 });
 
 var menuSchema = new mongoose.Schema({
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   name: String,
   tags: [String],
   description: {type: String, default:"Some quick example text to build on the card title and make up the bulk of the card\'s content."},

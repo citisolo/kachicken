@@ -6,10 +6,15 @@ import PropTypes from 'prop-types';
 import {MenuFormatter} from 'menu-planner-utils';
 import Modal from 'react-modal';
 import SearchComponent from './SearchComponent';
+import { bindActionCreators } from 'redux';
 
 import './MenuPlanner.css';
 
-class MenuCell extends Component {
+export class MenuCell extends Component {
+  // static contextTypes = {
+  //   redux: React.PropTypes.object
+  // }
+
   constructor(props){
     super(props);
     this.state = {
@@ -22,7 +27,7 @@ class MenuCell extends Component {
   componentWillReceiveProps(props){
     let list = [];
     props.recipes.map((id, index) => {
-      getRecipe(id)((action) => {
+      this.props.getRecipe(id)((action) => {
         list.push(action.payload);
         if(index === (props.recipes.length - 1)){
           this.setState({
@@ -75,11 +80,13 @@ const customStyles = {
   }
 };
 
-class MenuPlanner extends Component {
+export class MenuPlanner extends Component {
+  // static contextTypes = {
+  //   redux: React.PropTypes.object
+  // }
 
   constructor(props){
     super(props);
-
     this.state = {
       modalIsOpen: false,
       menu:{
@@ -112,7 +119,7 @@ class MenuPlanner extends Component {
   }
 
   componentWillReceiveProps(props){
-    console.log(props);
+    //console.log(props);
     this.setState({
       selectedMenu: props.selectedMenu,
       menu: MenuFormatter.decode(props.menuFormat)
@@ -120,8 +127,11 @@ class MenuPlanner extends Component {
   }
 
   componentDidMount(){
-     this.props.dispatch(getMenu(this.props.menuID));
-     this.setState({
+    //console.log("componentDidMount")
+    //console.log(this.props)
+    //let props = this.context.redux.getState()
+    this.props.dispatch(this.props.getMenu(this.props.menuID)); //dispatch function needs to be redux
+    this.setState({
        selectedMenu: this.props.selectedMenu,
        menu: MenuFormatter.decode(this.props.menuFormat)
      })
@@ -130,9 +140,9 @@ class MenuPlanner extends Component {
   removeItem(pos, index){
     var menu = Object.assign({}, this.state.menu);
     const result = menu[pos.row][pos.col].filter((item, idx) => idx != index );
-    console.log(result);
+    //console.log(result);
     menu[pos.row][pos.col] = result;
-    localStorage.setItem(this.props.menuID, JSON.stringify(menu));
+    this.props.localStorage.setItem(this.props.menuID, JSON.stringify(menu));
     this.setState({
       menu: menu
     })
@@ -140,7 +150,7 @@ class MenuPlanner extends Component {
 
   renderCell(row, col, val){
      let pos = {row, col};
-     return (<MenuCell position={pos} recipes={val} remove={this.removeItem}></MenuCell>)
+     return (<MenuCell position={pos} recipes={val} remove={this.removeItem} getRecipe={this.props.getRecipe}></MenuCell>)
   }
 
 
@@ -159,8 +169,9 @@ class MenuPlanner extends Component {
 
   render(){
     // console.log("render");
-    console.log(this.state.menu)
-    let cachedMenu = JSON.parse(localStorage.getItem(this.props.menuID)) ;
+    //console.log(this.state.menu)
+    //console.log("Render executed")
+    let cachedMenu = JSON.parse(this.props.localStorage.getItem(this.props.menuID)) ;
     if(cachedMenu){
       //console.log(m);
       this.state.menu = cachedMenu;
@@ -191,13 +202,13 @@ class MenuPlanner extends Component {
         </tr>
         <tr className="menu-add-row">
            <td></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
         </tr>
         <tr>
            <td><span className="menu-label">Lunch</span></td>
@@ -211,13 +222,13 @@ class MenuPlanner extends Component {
         </tr>
         <tr className="menu-add-row">
            <td></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
         </tr>
         <tr>
            <td><span className="menu-label">Snack</span></td>
@@ -231,13 +242,13 @@ class MenuPlanner extends Component {
         </tr>
         <tr className="menu-add-row">
            <td></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
         </tr>
         <tr>
            <td><span className="menu-label">Dinner</span></td>
@@ -251,13 +262,13 @@ class MenuPlanner extends Component {
         </tr>
         <tr className="menu-add-row">
            <td></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
         </tr>
          <tr>
            <td><span className="menu-label">Dessert</span></td>
@@ -271,17 +282,17 @@ class MenuPlanner extends Component {
         </tr>
         <tr className="menu-add-row">
            <td></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
-           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i class="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
+           <td><div className="menu-item-add"><span className="menu-item-utility-add badge badge-default" onClick={this.openModal}><i className="fas fa-plus-circle"></i></span></div></td>
         </tr>
         </tbody>
        </table>
-       <button type="button" id="menu-save-button" class="btn btn-primary">Save Menu</button>
+       <button type="button" id="menu-save-button" className="btn btn-primary">Save Menu</button>
        <div className="container">
        <Modal
           isOpen={this.state.modalIsOpen}
@@ -289,7 +300,6 @@ class MenuPlanner extends Component {
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal">
-
         <SearchComponent/>
         </Modal>
        </div>
@@ -300,15 +310,34 @@ class MenuPlanner extends Component {
 
 MenuPlanner.propTypes = {
   menuID: PropTypes.string.isRequired,
+  localStorage: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {
+  //console.log(state.windowObject);
   return {
     selectedMenu: state.mealplanner.selectedMenu,
-    menuFormat: state.mealplanner.selectedMenu.menuFormat
+    menuFormat: state.mealplanner.selectedMenu.menuFormat,
+    localStorage: state.windowObject.localStorage,
+    getMenu: state.mealplanner.getMenu,
+    getRecipe: state.mealplanner.getRecipe
   };
 };
 
-// export connect(mapStateToProps)(MenuItem);
+const mapMenuItemStateToProps = (state) =>{
+  //console.log("mapMenuItemStateToProps")
+  return {
+    getRecipe: state.mealplanner.getRecipe
+  };
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//     getMenu: getMenu,
+//     getRecipe: getRecipe
+//   }, dispatch);
+// }
+
+//connect(mapMenuItemStateToProps)(MenuItem);
 //export default connect(mapStateToProps)(MenuPlanner, MenuItem);
 export default connect(mapStateToProps)(MenuPlanner);

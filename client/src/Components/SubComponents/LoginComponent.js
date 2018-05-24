@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import './LoginComponent.css';
 
-class LoginComponent extends Component {
+export class LoginComponent extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -20,35 +20,34 @@ class LoginComponent extends Component {
   }
 
   handleChange(event){
-    this.setState({value: event.target.value});
+    let name = event.target.name
+    this.setState({[name]: event.target.value});
   }
 
   handleSubmit(event){
     let email = this.state.email;
     let password = this.state.password;
-    this.dispatch(login(email, password));
+    this.props.dispatch(login(email, password));
     event.preventDefault();
   }
 
   render(){
     return (
             <form onSubmit={this.handleSubmit}>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" value={this.state.email} class="form-control" id=
+              <div className="form-group">
+                <input type="email" name="email" value={this.state.email} onChange={this.handleChange} className="form-control" id=
                 "exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email" /> 
+                placeholder="Enter email" />
               </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" value={this.state.password} class="form-control" id=
+              <div className="form-group">
+                <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="form-control" id=
                 "exampleInputPassword1" placeholder="Password" />
               </div>
-              <div class="form-check">
-                <input type="checkbox" value={this.state.checkbox} class="form-check-input" id=
-                "exampleCheck1" /> <label class="form-check-label" for=
+              <div className="form-check">
+                <input type="checkbox" value={this.state.checkbox} className="form-check-input" id=
+                "exampleCheck1" /> <label className="form-check-label" htmlFor=
                 "exampleCheck1">remember me</label>
-              </div><button type="submit" class=
+              </div><button type="submit" className=
               "btn btn-primary" >Submit</button>
             </form>
     )
@@ -57,11 +56,12 @@ class LoginComponent extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    token: state.token
+    user: state.auth.user,
+    token: state.auth.token
   };
 };
 
 // export connect(mapStateToProps)(MenuItem);
 //export default connect(mapStateToProps)(MenuPlanner, MenuItem);
+
 export default connect(mapStateToProps)(LoginComponent);

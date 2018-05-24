@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import Footer from './Footer'
+import Footer from './Footer';
+
 
 import './Shell.css';
 
@@ -8,11 +9,11 @@ class Shell extends Component {
   constructor(props){
     super(props);
   }
-
+//<LoginComponent/>
   render(){
     return (
        <div id="spa" className="container-fluid">
-         <Header> </Header>
+         <Header loginComponent={this.props.loginComponent}></Header>
          <div id="main-body" className="card">
            <div className="card-body">
              {this.props.children}

@@ -1,4 +1,8 @@
+
+import { getMenu, getRecipe } from '../actions/mealplanner'
 const initialState = {
+  getMenu: getMenu,
+  getRecipe: getRecipe,
   menus: [],
   selectedMenu: {
     dummy: true,

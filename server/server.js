@@ -17,15 +17,34 @@ const https = require('https');
 const fs = require('fs');
 const helmet = require('helmet');
 const cors = require('cors');
+//var acl = require('acl');
+
+
 
 // Load environment variables from .env file
 dotenv.load();
 
+function onConnection(err, db){
+  if (err) return console.error(err);
+
+  // acl = new acl(new acl.mongodbBackend(db, "acl_"));
+  // acl.allow('guest', 'menu', 'view');
+  // acl.allow('guest', 'recipe', 'view');
+  // acl.allow('guest', 'ingredient', 'view')
+  // acl.allow('member', 'menu' ['edit', 'view', 'delete']);
+  // acl.allow('member', 'recipe' ['edit', 'view', 'delete']);
+  // acl.allow('member', 'ingredient' ['edit', 'view', 'delete']);
+  // acl.allow('member', 'user', 'edit')
+  // acl.allow('administrator', 'menu', "*");
+  // acl.allow('administrator', 'recipe', "*");
+  // acl.allow('administrator', 'ingredient', "*");
+  // acl.allow('administrator', 'user', 'delete');
+}
 // Database Connection
 if(process.env.PRODUCTION === 'true'){
-  mongoose.connect(process.env.MONGODB_PRODUCTION);
+  mongoose.connect(process.env.MONGODB_PRODUCTION, onConnection);
 }else{
-  mongoose.connect(process.env.MONGODB);
+  mongoose.connect(process.env.MONGODB, onConnection);
 }
 
 var db = mongoose.connection;
@@ -48,6 +67,10 @@ app.use(expressValidator());
 //app.use(cookieParser());
 app.use(helmet());
 app.use(passport.initialize());
+// var corsOptions = {
+//   origin: 'http://example.com',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 app.use(cors());
 // app.use(function(err, req, res, next){
 //   console("hello");

@@ -1,5 +1,5 @@
-const userLoginApi = 'https://localhost:3080/api/user';
-const userSignupApi = 'https://localhost:3080/api/login';
+const userLoginApi = 'https://localhost:3080/api/login';
+const userSignupApi = 'https://localhost:3080/api/user';
 
 export function login(email, password){
   return (dispatch) => {
@@ -7,10 +7,11 @@ export function login(email, password){
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: email,
-        password: password
+        logemail: email,
+        logpassword: password
       })
     }).then((response) => {
+      console.log(response)
       if (response.ok) {
         return response.json().then((json) => {
           dispatch({
@@ -36,22 +37,29 @@ export function signup(name, email, password, passwordConf) {
   return (dispatch) => {
     return fetch(userSignupApi, {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, password: password,  passwordConf:password })
+      headers: { 'Content-Type': 'application/json', 'origin' : 'http://localhost:3000' },
+      body: JSON.stringify({
+        username: name,
+        email: email,
+        password: password,
+        passwordConf:passwordConf })
     }).then((response) => {
       return response.json().then((json) => {
+        console.log(response);
         if (response.ok) {
           dispatch({
             type: 'SIGNUP_SUCCESS',
             token: json.token,
-            user: json.user
+            user: json.user,
+            success: true
           });
           // browserHistory.push('/');
           // cookie.save('token', json.token, { expires: moment().add(1, 'hour').toDate() });
         } else {
           dispatch({
             type: 'SIGNUP_FAILURE',
-            messages: Array.isArray(json) ? json : [json]
+            messages: Array.isArray(json) ? json : [json],
+            success: false
           });
         }
       });

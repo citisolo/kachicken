@@ -8,6 +8,7 @@ let ingredientEntrySchema = new mongoose.Schema({
 });
 
 var recipeSchema = new mongoose.Schema({
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   name: String,
   type: String,
   lifeStyle:[String],

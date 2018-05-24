@@ -38,6 +38,9 @@ class MenuFormatter {
 
   static encode(menuObject){
     let res = new MenuFormat()
+    // if (menuObject === undefined){
+    //   return res;
+    // }
     for(let row in menuObject){
       for(let col in menuObject[row]){
         let data = menuObject[row][col];
@@ -53,6 +56,9 @@ class MenuFormatter {
 
   static decode(format) {
     let menu = new MenuObject();
+    // if (format === undefined){
+    //   return menu;
+    // }
     for(let key in format.row){
       let row = format.row[key];
       let col = format.col[key];

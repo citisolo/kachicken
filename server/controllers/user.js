@@ -36,7 +36,7 @@ if(req.body.logemail && req.body.logpassword){
           // const token = jwt.sign(user.toJSON(), config.secret, {
           //   expiresIn: 10080 // in seconds
           // });
-          utils.sendJsonResponse(res, 200, {success: true, token:'JWT ' + token});
+          utils.sendJsonResponse(res, 200, {success: true, token:'JWT ' + token, user: user._id});
 
         } else {
           //return callback();
@@ -67,6 +67,7 @@ module.exports.userPost = function(req, res){
       User.create(userData, function (err, user){
         if(err) {
           //console.log("MONGODB_ERROR: " + err);
+          console.log("it has been called");
           return utils.sendJsonResponse(res, 400, err);
         }
 
@@ -93,7 +94,8 @@ module.exports.userPost = function(req, res){
     req.assert('password', 'serves cannot be blank').notEmpty();
     req.assert('passwordConf', 'meal Time cannot be blank').notEmpty();
     var errors = req.validationErrors();
-    return res.status(400).send(errors ? errors : "passwords do not match");
+    return utils.sendJsonResponse(res, 400, errors ? errors : "passwords do not match" )
+    //return res.status(400).send(errors ? errors : "passwords do not match");
   }
 };
 
