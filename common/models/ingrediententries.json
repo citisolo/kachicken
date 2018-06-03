@@ -1,0 +1,28 @@
+{
+  "name": "ingrediententries",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "ingredient": {
+      "type": [
+        "ingredients"
+      ]
+    },
+    "unit": {
+      "type": "string",
+      "required": true,
+      "default": "quantity"
+    },
+    "quantity": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

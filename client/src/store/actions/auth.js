@@ -1,24 +1,26 @@
-const userLoginApi = 'https://localhost:3080/api/login';
-const userSignupApi = 'https://localhost:3080/api/user';
+// const userLoginApi = 'https://localhost:3080/api/login';
+// const userSignupApi = 'https://localhost:3080/api/user';
+const userLoginApi = '/api/Users/login/';
+const userSignupApi = '/api/Users/';
 
-export function login(email, password){
+export function login(email, password, cb){
   return (dispatch) => {
     return fetch(userLoginApi, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        logemail: email,
-        logpassword: password
+        email: email,
+        password: password
       })
     }).then((response) => {
-      console.log(response)
+      cb(response);
       if (response.ok) {
         return response.json().then((json) => {
           dispatch({
             type: 'LOGIN_SUCCESS',
             token: json.token,
             user: json.user,
-            success: true
+            loginSuccess: true
           });
           // browserHistory.push('/');
           // cookie.save('token', json.token, { expires: moment().add(1, 'hour').toDate() });
@@ -27,7 +29,7 @@ export function login(email, password){
         return response.json().then((json) => {
           dispatch({
             type:'LOGIN_FAILURE',
-            success: false
+            loginSuccess: false
           });
         });
       }
@@ -35,7 +37,7 @@ export function login(email, password){
   }
 }
 
-export function signup(name, email, password, passwordConf) {
+export function signup(name, email, password, passwordConf, cb) {
   return (dispatch) => {
     return fetch(userSignupApi, {
       method: 'post',
@@ -44,16 +46,15 @@ export function signup(name, email, password, passwordConf) {
         username: name,
         email: email,
         password: password,
-        passwordConf:passwordConf })
+      })
     }).then((response) => {
       return response.json().then((json) => {
-        console.log(response);
+        cb(response);
         if (response.ok) {
           dispatch({
             type: 'SIGNUP_SUCCESS',
-            token: json.token,
-            user: json.user,
-            success: true
+            user: json,
+            signupSuccess: true
           });
           // browserHistory.push('/');
           // cookie.save('token', json.token, { expires: moment().add(1, 'hour').toDate() });
@@ -61,7 +62,7 @@ export function signup(name, email, password, passwordConf) {
           dispatch({
             type: 'SIGNUP_FAILURE',
             messages: Array.isArray(json) ? json : [json],
-            success: false
+            signupSuccess: false
           });
         }
       });

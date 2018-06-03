@@ -44,12 +44,10 @@ export class Header extends Component {
     let icon;
 
     if (this.props.token){
-      console.log("setting icon");
       icon = <i id="login-icon" className="far fa-user-circle"></i>
     }else {
       icon = <i id="login-icon" className="fas fa-sign-in-alt"></i>;
     }
-    console.log(icon);
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
         <a className="navbar-brand" href="/"><i id="sitebrand" className="fas fa-chess-queen"></i></a>
@@ -90,7 +88,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     token: state.auth.token,
-    success: state.auth.success
+    success: state.auth.loginSuccess
   };
 };
 

@@ -7,11 +7,16 @@ const initialState = {
 export default function auth(state = initialState, action){
   switch (action.type) {
     case 'LOGIN_SUCCESS':
+      return Object.assign({}, state, {
+        token: action.token,
+        user: action.user,
+        loginSuccess: action.success
+      });
     case 'SIGNUP_SUCCESS':
       return Object.assign({}, state, {
         token: action.token,
         user: action.user,
-        success: action.success
+        signupSuccess: action.success
       });
     case 'SIGNUP_FAILURE':
       return Object.assign({}, state, {

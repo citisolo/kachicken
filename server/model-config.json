@@ -1,0 +1,54 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "mkssmongo"
+  },
+  "AccessToken": {
+    "dataSource": "mkssmongo",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "mkssmongo",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "mkssmongo",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "mkssmongo",
+    "public": false
+  },
+  "ingredients": {
+    "dataSource": "mkssmongo",
+    "public": true
+  },
+  "menus": {
+    "dataSource": "mkssmongo",
+    "public": true
+  },
+  "recipes": {
+    "dataSource": "mkssmongo",
+    "public": true
+  },
+  "ingrediententries": {
+    "dataSource": "mkssmongo",
+    "public": true
+  }
+}

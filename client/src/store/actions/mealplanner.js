@@ -1,12 +1,17 @@
 
-const host = 'https://localhost:3080/api/';
+//const host = 'https://localhost:3080/api/';
+//const host = '/';
+const menuAPI = '/api/Menus/';
+const recipeAPI = '/api/Recipes/';
 
 export function getMenus() {
   return (dispatch) => {
-    return fetch( host  + 'menu',  {
+    return fetch(menuAPI,  {
       method: 'GET'
     }).then((response) => {
+      console.log(response);
       if (response.ok) {
+        console.log(response);
         return response.json()
                        .then((json) => {
                          dispatch({
@@ -28,9 +33,10 @@ export function getMenus() {
 
 export function getMenu(menuID){
   return (dispatch) => {
-    const url = host + 'menu/' + menuID;
+    const url = menuAPI + menuID;
     return fetch(url, { method: 'GET' })
           .then((response) => {
+            console.log(response);
               if (response.ok) {
                 return response.json()
                                .then((json) => {
@@ -53,7 +59,7 @@ export function getMenu(menuID){
 
 export function getRecipe(recipeID){
   return (dispatch) => {
-    const url = host + 'recipe/' + recipeID;
+    const url = recipeAPI + recipeID;
     return fetch(url, { method: 'GET' })
           .then((response) => {
               if (response.ok) {

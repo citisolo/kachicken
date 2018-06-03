@@ -34,7 +34,7 @@ class LandingPage extends Component {
                 <div>
                   <MenuCard image='/assets/img/menu.png'
                             altImage=""
-                            menuID = {item._id}
+                            menuID = {item.id}
                             title={item.name}
                             desc={item.description}
                             ></MenuCard>

@@ -12,15 +12,59 @@ class Register extends Component {
         username: '',
         email: '',
         password: '',
-        passwordConf: ''
+        passwordConf: '',
+        verified: false,
+        verificationStyle: {
+          'box-shadow' : '',
+        },
+        success: false
      }
 
      this.handleChange = this.handleChange.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this)
    }
 
+   componentWillReceiveProps(props){
+     console.log("getDerivedStateFromProps: called upon fetch");
+     if(props.success){
+       return {
+         success : true
+       }
+     }
+     return null;
+   }
+
+   getDerivedStateFromProps(props, state){
+     console.log("getDerivedStateFromProps: called upon fetch");
+     if(props.success){
+       return {
+         success : true
+       }
+     }
+     return null;
+   }
+
+   verify(){
+     if(this.state.passwordConf != this.state.password){
+       this.setState({
+         verified: true,
+         verificationStyle: {
+           'box-shadow' : '0 0 0 .2rem rgba(255, 0, 0, 0.3)',
+         }
+       });
+     } else {
+       this.setState({
+         verified: false,
+         verificationStyle: {
+           'box-shadow' : '',
+         }
+       });
+     }
+   }
+
    handleChange(e){
-     console.log(e.target.id);
+     //console.log(e.target.id);
+
      switch(e.target.id){
        case "inputUsername":
         this.setState({username: e.target.value});
@@ -30,9 +74,11 @@ class Register extends Component {
         break;
        case "exampleInputPassword1":
         this.setState({password: e.target.value});
+        this.verify();
         break;
        case "exampleInputPassword2":
         this.setState({passwordConf: e.target.value});
+        this.verify();
         break;
       default:
         return;
@@ -45,14 +91,21 @@ class Register extends Component {
       if(password != passwordConf){
         //display message
       } else {
-        this.props.dispatch(signup(username, email, password, passwordConf))
+        this.props.dispatch(signup(username, email, password, passwordConf, (response) => {
+          if(response.ok){
+            this.setState({
+              success : true
+            });
+          }
+        }))
       }
    }
 
    render(){
-     if(this.props.success){
+     if(this.state.success){
        return <Redirect to="/"/>
      }
+
      return (
        <div className="container mkss-center-container">
          <div className="card" style={{width: '20rem'}}>
@@ -72,7 +125,7 @@ class Register extends Component {
                </div>
                <div className="form-group">
                  <label htmlFor="exampleInputPassword2">CheckPassword</label>
-                 <input type="password" value={this.state.passwordConf} onChange={this.handleChange} className="form-control" id="exampleInputPassword2" placeholder="Password"/>
+                 <input style={this.state.verificationStyle} type="password" value={this.state.passwordConf} onChange={this.handleChange} className="form-control" id="exampleInputPassword2" placeholder="Password"/>
                </div>
                <button type="submit" className="btn btn-primary">Submit</button>
              </form>
@@ -85,7 +138,7 @@ class Register extends Component {
 const mapStateToProps = (state) => {
   //console.log(state.windowObject);
   return {
-    success: state.auth.success
+    success: state.auth.signupSuccess
   };
 };
 

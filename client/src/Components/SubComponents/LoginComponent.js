@@ -29,7 +29,13 @@ export class LoginComponent extends Component {
   handleSubmit(event){
     let email = this.state.email;
     let password = this.state.password;
-    this.props.dispatch(login(email, password));
+    this.props.dispatch(login(email, password, (response) => {
+      if(response.ok){
+        this.setState({
+          success : true
+        });
+      }
+    }));
     event.preventDefault();
   }
 
@@ -49,7 +55,7 @@ export class LoginComponent extends Component {
     if(location.pathname === userPath){
       elems = <Link to='LogOut'>Log out</Link>
     }
-    else if(this.props.success){
+    else if(this.state.success){
       elems = <Redirect to={userPath}/>
     }
     else {

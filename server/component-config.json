@@ -1,0 +1,6 @@
+{
+  "loopback-component-explorer": {
+    "mountPath": "/__explorer",
+    "generateOperationScopedModels": true
+  }
+}
