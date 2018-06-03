@@ -78,8 +78,9 @@ export class UserPage extends Component {
 const mapStateToProps = (state) => {
   return {
     // state: state.mealplanner.menus,
-    localStorage: state.localStorage
+    localStorage: state.localStorage,
+    user : state.auth
   }
 }
 
-export default connect(mapStateToProps)(MenuPage);
+export default connect(mapStateToProps)(UserPage);

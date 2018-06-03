@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Register.css';
 import { signup } from '../store/actions/auth';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 
 class Register extends Component {
 

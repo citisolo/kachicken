@@ -5,7 +5,6 @@ const User = require('../models/User');
 const config = require('../config/database');
 
 module.exports = function(passport) {
-
   var opts = {};
   opts.secretOrKey  = config.secret;
   opts.jwtFromRequest = function(req) {
@@ -15,7 +14,6 @@ module.exports = function(passport) {
   };
 
   passport.use(new JwtStrategy(opts, function(jwt_payload, done){
-
     User.findOne({id: jwt_payload.id}, function(err, user){
       if(err) {
         return done(err, false);

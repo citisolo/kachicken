@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {MenuObject, MenuFormat, MenuFormatter} = require('../index.js');
+const {MenuObject, MenuFormat, MenuFormatter} = require('../source/index.js');
 
 formatData = {
     row:["breakfast", "dinner", "dinner", "lunch", "snack"],

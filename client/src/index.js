@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configStore';
 import LoginComponent from './Components/SubComponents/LoginComponent';
 import Register from './Components/Register';
+import UserPage from './Components/UserPage';
 
 import './index.css';
 
@@ -25,6 +26,7 @@ ReactDOM.render((
           <Route path='/search' component={SearchPage}/>
           <Route path={"/menu/:menuID"} component={MenuPage}/>
           <Route path='/register' component={Register}/>
+          <Route path={'/user/:userID'} component={UserPage}/>
         </Switch>
       </Shell>
     </BrowserRouter>

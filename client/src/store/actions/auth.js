@@ -17,7 +17,8 @@ export function login(email, password){
           dispatch({
             type: 'LOGIN_SUCCESS',
             token: json.token,
-            user: json.user
+            user: json.user,
+            success: true
           });
           // browserHistory.push('/');
           // cookie.save('token', json.token, { expires: moment().add(1, 'hour').toDate() });
@@ -26,6 +27,7 @@ export function login(email, password){
         return response.json().then((json) => {
           dispatch({
             type:'LOGIN_FAILURE',
+            success: false
           });
         });
       }

@@ -3,7 +3,8 @@ const indexRouter = express.Router();
 const utils = require('../models/utils');
 //const config = require('../config');
 
-const User = require('../models/User');
+//const User = require('../models/User');
+require('../models/User');
 require('../models/Ingredient');
 require('../models/Recipe');
 require('../models/Menu');

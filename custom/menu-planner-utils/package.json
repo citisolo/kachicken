@@ -2,13 +2,19 @@
   "name": "menu-planner-utils",
   "version": "1.0.0",
   "description": "utilities for menuplanner app",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "mocha ./test --recursive"
+    "test": "mocha ./test --recursive",
+    "build": "babel source --presets babel-preset-es2015 --out-dir dist",
+    "prepublish": "npm run build"
   },
   "author": "kwadwo amankwa",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^5.0.2"
+    "mocha": "^5.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
   }
 }
