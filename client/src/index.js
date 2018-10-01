@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker, {unregister} from './registerServiceWorker';
 import App from './App';
 import { AppContainer } from 'react-hot-loader';
 
@@ -15,6 +15,7 @@ const render = Component => {
 }
 
 registerServiceWorker();
+//unregister();
 
 render(App);
 

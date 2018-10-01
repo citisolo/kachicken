@@ -47,8 +47,9 @@ export class LoginComponent extends Component {
 
   render(){
     const { success, token, user, location} = this.props;
-    console.log(location.pathname);
-    let userPath = '/user/'+ this.props.user;
+    console.log(user);
+
+    let userPath = '/user/'+ this.props.user.userId;
 
     let elems = '';
 

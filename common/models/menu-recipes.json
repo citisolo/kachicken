@@ -1,0 +1,24 @@
+{
+  "name": "menuRecipes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "recipes": {
+      "type": "belongsTo",
+      "model": "recipes",
+      "foreignKey": "recipeId"
+    },
+    "menus": {
+      "type": "belongsTo",
+      "model": "menus",
+      "foreignKey": "menuId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

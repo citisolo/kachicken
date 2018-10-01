@@ -1,0 +1,31 @@
+{
+  "name": "UserAccount",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "restrictResetPasswordTokenScope": true,
+  "emailVerificationRequired": true,
+  "validations": [],
+  "relations": {
+    "menus": {
+      "type": "hasMany",
+      "model": "menus",
+      "foreignKey": "menuId"
+    },
+    "recipes": {
+      "type": "hasMany",
+      "model": "recipes",
+      "foreignKey": "recipeId"
+    },
+    "ingredients": {
+      "type": "hasMany",
+      "model": "ingredients",
+      "foreignKey": "ingredientId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

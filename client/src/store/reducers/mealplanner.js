@@ -3,6 +3,7 @@ import { getMenu, getRecipe } from '../actions/mealplanner'
 const initialState = {
   getMenu: getMenu,
   getRecipe: getRecipe,
+  ingredients: [],
   menus: [],
   selectedMenu: {
     dummy: true,
@@ -23,6 +24,18 @@ const initialState = {
 
 export default function mealplanner(state=initialState, action){
   switch(action.type){
+    case "GETINGREDIENT_SUCCESS":
+      return Object.assign({}, state, {
+        ingredient: action.payload
+      })
+    case "GETINGREDIENTS_SUCCESS":
+      return Object.assign({}, state, {
+        ingredients: action.payload
+      })
+    case "SAVEINGREDIENT_SUCCESS":
+      return Object.assign({}, state, {
+        saveIngredientSuccess: action.payload
+      })
     case "GETMENUS_SUCCESS":
       return Object.assign({}, state, {
         menus: action.payload
@@ -36,6 +49,10 @@ export default function mealplanner(state=initialState, action){
         recipes: action.payload
       })
     case "GETMENUS_FAILURE":
+    case "GETRECIPE_FAILURE":
+    case "GETINGREDIENTS_FAILURE":
+    case "GETINGREDIENT_FAILURE":
+    case "SAVEINGREDIENT_FAILURE":
     default:
      return state;
   }

@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "clean-client": "rm -rf ./client/build",
     "build-client": "yarn clean-client && yarn --cwd ./client build",
-    "fullstart": "yarn build-client && node .",
+    "full-start": "concurrently \"node .\" \"npm --prefix ./client start ./client\"",
     "start": "node .",
     "posttest": "npm run lint && nsp check"
   },
@@ -26,6 +26,7 @@
     "strong-error-handler": "^2.0.0"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "eslint": "^3.17.1",
     "eslint-config-loopback": "^8.0.0",
     "nsp": "^2.1.0"
@@ -35,5 +36,5 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "08_kachiken"
+  "description": "06_kachiken"
 }

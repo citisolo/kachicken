@@ -13,12 +13,6 @@
     "type": {
       "type": "string"
     },
-    "ingredients": {
-      "type": [
-        "object"
-      ],
-      "required": true
-    },
     "serves": {
       "type": "number",
       "required": true
@@ -28,7 +22,19 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "ingredients": {
+      "type": "hasMany",
+      "model": "ingredients",
+      "foreignKey": "",
+      "through": "ingrediententries"
+    },
+    "owner": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "ownerId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

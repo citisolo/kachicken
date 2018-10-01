@@ -31,7 +31,19 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "menuRecipes": {
+      "type": "hasMany",
+      "model": "menuRecipes",
+      "foreignKey": "recipeId",
+      "through": "menuRecipes"
+    },
+    "owner": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "ownerId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

@@ -22,7 +22,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "ingredients": {
+      "type": "belongsTo",
+      "model": "ingredients",
+      "foreignKey": "ingredientId"
+    },
+    "recipes": {
+      "type": "belongsTo",
+      "model": "recipes",
+      "foreignKey": "recipeId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

@@ -14,7 +14,11 @@
     ]
   },
   "User": {
-    "dataSource": "mkssmongo"
+    "dataSource": "mkssmongo",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true
+    }
   },
   "AccessToken": {
     "dataSource": "mkssmongo",
@@ -48,6 +52,14 @@
     "public": true
   },
   "ingrediententries": {
+    "dataSource": "mkssmongo",
+    "public": true
+  },
+  "menuRecipes": {
+    "dataSource": "mkssmongo",
+    "public": true
+  },
+  "UserAccount": {
     "dataSource": "mkssmongo",
     "public": true
   }

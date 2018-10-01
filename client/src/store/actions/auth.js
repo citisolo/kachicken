@@ -19,7 +19,7 @@ export function login(email, password, cb){
           dispatch({
             type: 'LOGIN_SUCCESS',
             token: json.token,
-            user: json.user,
+            user: json,
             loginSuccess: true
           });
           // browserHistory.push('/');

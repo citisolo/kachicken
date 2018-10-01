@@ -1,0 +1,21 @@
+
+  .mkss-center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+  }
+
+  .row.dummy-header {
+    /* height: 200px; */
+  }
+
+  #login-header {
+    padding: 40px 0 10px 0;
+    text-align:center;
+  }
+
+  .fa-user-circle {
+    font-size: 7em;
+    color: #007bff;
+  }

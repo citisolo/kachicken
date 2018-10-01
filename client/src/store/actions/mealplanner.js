@@ -3,6 +3,70 @@
 //const host = '/';
 const menuAPI = '/api/Menus/';
 const recipeAPI = '/api/Recipes/';
+const ingredientAPI = '/api/Ingredients/';
+
+
+
+export function getIngredient(id, cb){
+  let url = ingredientAPI + id;
+  return request( url,
+                 {method: 'GET'},
+                 (json) => {
+                   return {
+                     type: 'GETINGREDIENT_SUCCESS',
+                     payload: json
+                   }
+                 },
+                 (json) => {
+                   return {
+                     type: 'GETINGREDIENT_FAILURE'
+                   }
+                 },
+                 cb);
+}
+export function getIngredients(cb){
+  return request(ingredientAPI,
+                 {method: 'GET'},
+                 (json) => {
+                   return {
+                     type: 'GETINGREDIENTS_SUCCESS',
+                     payload: json
+                   }
+                 },
+                 (json) => {
+                   return {
+                     type: 'GETINGREDIENTS_FAILURE',
+                   }
+                 },
+                 cb)
+}
+export function saveIngredient(name, cb){
+  console.log(name);
+  var formData = new FormData();
+  formData.append( "json", JSON.stringify({ "name": name}));
+  return request(ingredientAPI,
+                 {
+                   method: 'post',
+                   headers: { 'Content-Type': 'application/json', 'origin' : 'http://localhost:3000' },
+                   body: JSON.stringify({
+                     name: name,
+                   })
+                 },
+                 (json) => {
+                   return {
+                     type: 'INGREDIENT_SAVE_SUCCESS',
+                     payload: json
+                   }
+                 },
+                 (json) => {
+                   return {
+                     type: 'INGREDIENT_SAVE_FAILURE'
+                   }
+                 },
+                 cb);
+}
+
+
 
 export function getMenus() {
   return (dispatch) => {
@@ -11,7 +75,6 @@ export function getMenus() {
     }).then((response) => {
       console.log(response);
       if (response.ok) {
-        console.log(response);
         return response.json()
                        .then((json) => {
                          dispatch({
@@ -79,5 +142,27 @@ export function getRecipe(recipeID){
                                });
               }
             });
+  }
+}
+
+function request(api, header, successDispatch, failureDispatch, cb){
+    return (dispatch) => {
+      return fetch(api, header)
+      .then((response) => {
+        if(typeof cb  === 'function' ){
+          cb(response);
+        }
+        if(response.ok) {
+          return response.json()
+                         .then((json) => {
+                           dispatch(successDispatch(json));
+                         });
+        } else {
+          return response.json()
+                         .then((json) => {
+                           dispatch(failureDispatch(json));
+                         })
+        }
+      })
   }
 }
