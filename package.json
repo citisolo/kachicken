@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "clean-client": "rm -rf ./client/build",
     "build-client": "yarn clean-client && yarn --cwd ./client build",
-    "full-start": "concurrently \"node .\" \"npm --prefix ./client start ./client\"",
     "start": "node .",
     "posttest": "npm run lint && nsp check"
   },
