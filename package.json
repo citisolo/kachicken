@@ -1,5 +1,5 @@
 {
-  "name": "08_kachiken",
+  "name": "kachiken",
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "clean-client": "rm -rf ./client/build",
     "build-client": "yarn clean-client && yarn --cwd ./client build",
+    "test": "yarn --cwd ./client run test",
     "start": "node .",
     "posttest": "npm run lint && nsp check"
   },
