@@ -6,7 +6,7 @@
   "mkssmongo": {
     "host": "",
     "port": 0,
-    "url": "mongodb://citisolo:nkwa4770@ds145438.mlab.com:45438/mkss-secure-api",
+    "url": "mongodb://<username>:<password>@ds145438.mlab.com:45438/mkss-secure-api",
     "database": "",
     "password": "",
     "name": "mkssmongo",
